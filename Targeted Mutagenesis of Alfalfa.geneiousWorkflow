@@ -1,0 +1,91 @@
+<geneiousWorkflows>
+  <XMLSerialisableRootElement name="Targeted Mutagenesis of Alfalfa" author="Hilary Miller" geneiousVersion="2021.0.1" uniqueId="dec3c04e-8634-46cc-8853-3a7cb31c65b7" revisionNumber="7" shared="true" wasEverShared="true" description="&lt;html&gt;Takes processed pacbio laa reads, sorts into individual folders and aligns reads to reference sequences&lt;/html&gt;" bundledIconName="plugin">
+    <workflowElement type="com.biomatters.plugins.workflows.WorkflowElementForEach" />
+    <workflowElement id="batchRename" exposeNoOptions="true" exposeAllOptions="false" suppressErrors="true" showButtonForExposedGroup="false" groupNameForExposedOptions="" type="com.biomatters.plugins.workflows.DocumentOperationWorkflowElement">
+      <Options>
+        <option name="advancedCheckbox">false</option>
+        <option name="customComponent1" />
+        <childOption name="renameMethodChildOptions">
+          <option name="selectedRenameMethod">renamableOption2</option>
+          <childOption name="BatchRenameSubOptions0">
+            <option name="attributeProcedure">nameProcedure</option>
+            <option name="startBatchIndexOption">0</option>
+            <option name="endBatchIndexInclusiveOption">2147483647</option>
+            <option name="sequencesInSequenceListDocumentRenamableSequenceType">allSequencesInListOption</option>
+          </childOption>
+          <childOption name="BatchRenameSubOptions1">
+            <option name="attributeProcedure">nameProcedure</option>
+            <option name="followAndRenameReferences">true</option>
+          </childOption>
+          <childOption name="BatchRenameSubOptions2">
+            <option name="selectedFieldComboOption">fieldOptioncache_name</option>
+          </childOption>
+        </childOption>
+        <childOption name="basicSuperOptions">
+          <option name="task">removeRremoveRadioButtonadioButton</option>
+          <option name="r1">fieldOptioncache_name</option>
+          <option name="rSep" />
+          <option name="r2">nothingSelectedOption</option>
+          <option name="rSep2" />
+          <option name="r3">nothingSelectedOption</option>
+          <option name="appendTextField" />
+          <option name="appendPositionComboBox">endValue</option>
+          <option name="removeHowMuchIntegerOption">18</option>
+          <option name="removePositionComboBox">startValue</option>
+        </childOption>
+        <childOption name="advancedSuperOptions">
+          <option name="replaceWhatTypeRadioOption">entireFieldOption</option>
+          <option name="replaceWhatTextField" />
+          <option name="ignoreCaseCheckbox">true</option>
+          <option name="isRegexCheckbox">false</option>
+          <option name="replaceWithTextField" />
+          <option name="plusButton">Add Property...</option>
+        </childOption>
+      </Options>
+      <optionToExpose optionName="advancedCheckbox" label="" />
+    </workflowElement>
+    <workflowElement type="com.biomatters.plugins.workflows.WorkflowElementSaveAndContinue">
+      <options>
+        <option name="save">true</option>
+        <option name="saveInSubFolder">true</option>
+        <option name="subFolderName">{Name_Of_Input_0_Steps_Ago}</option>
+        <option name="addVariable">Include Name...</option>
+        <option name="selectDocuments">false</option>
+        <option name="doWhat">continue</option>
+        <option name="back">2</option>
+      </options>
+    </workflowElement>
+    <workflowElement type="com.biomatters.plugins.workflows.WorkflowElementAddInputDocument">
+      <options>
+        <option name="optionName">References</option>
+        <option name="fromWhere">fromSelectedDocuments</option>
+        <option name="type">Sequence list</option>
+      </options>
+    </workflowElement>
+    <workflowElement id="MAFFT" exposeNoOptions="true" exposeAllOptions="false" suppressErrors="false" showButtonForExposedGroup="false" groupNameForExposedOptions="" type="com.biomatters.plugins.workflows.DocumentOperationWorkflowElement">
+      <Options>
+        <option name="algorithmModes">auto</option>
+        <option name="proteinScoringMatrix">BLOSUM62</option>
+        <option name="nucleotideScoringMatrix">200PAM</option>
+        <option name="gapOpenPenalty">1.53</option>
+        <option name="offsetValue">0.123</option>
+        <option name="preserveOrder">false</option>
+        <option name="autoDirection">true</option>
+        <option name="adjustAccurately">false</option>
+        <option name="legacyGapPenalty">false</option>
+      </Options>
+      <optionToExpose optionName="algorithmModes" label="" />
+    </workflowElement>
+    <workflowElement type="com.biomatters.plugins.workflows.WorkflowElementSaveAndContinue">
+      <options>
+        <option name="save">true</option>
+        <option name="saveInSubFolder">true</option>
+        <option name="subFolderName">{Name_Of_Input_3_Steps_Ago}</option>
+        <option name="addVariable">Include Name...</option>
+        <option name="selectDocuments">false</option>
+        <option name="doWhat">continue</option>
+        <option name="back">2</option>
+      </options>
+    </workflowElement>
+  </XMLSerialisableRootElement>
+</geneiousWorkflows>
