@@ -1,0 +1,33 @@
+#!/bin/bash -l
+#SBATCH --time=96:00:00
+#SBATCH --ntasks=16
+#SBATCH --mem=60g
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=curti242@umn.edu
+#SBATCH -A curti242
+#SBATCH -p amdsmall
+
+
+
+### Change these lines accordingly. You have to create the directories previously
+# BAMDIR is the directory where the bam files are. OUTPUTDIR is the scratch directory to run the script. OUTAMPLICONDIR is where the "amplicon_analysis.SAMPLE.fastq" are going to be stored
+BAMDIR="/panfs/roc/groups/8/curti242/curti242/MILLER_et-al_RNA-seq/PACBIO-amplicons/r54098_20200728_172920-1_A01/Analysis/demultiplex_20200731-21-49-57"
+OUTPUTDIR="/scratch.global/curti242/OUTPUT-dir"
+OUTAMPLICONDIR="/scratch.global/curti242/PROCESSED"
+####
+
+module load umgc
+module load smrtlink
+
+#local cromwell.conf supplied by John Garbe
+
+cd $BAMDIR
+for F in `ls *.bam | grep -v ccs`
+do
+   bamfile=$(basename $F .bam)
+   xmlfile="${bamfile}.subreadset.xml"
+   dataset create "${OUTPUTDIR}/${xmlfile}" "${bamfile}.bam"
+   fileid=$(echo ${bamfile} | sed 's/sequel-demultiplex\.//')
+   pbcromwell run pb_laa --nproc 32 -e ${OUTPUTDIR}/${xmlfile} --config ~/cromwell.conf --output-dir ${OUTPUTDIR}/outputdir-${fileid}
+   $(find ${OUTPUTDIR}/outputdir-${fileid} -type f -name "amplicon_analysis.fastq" -print | xargs -i cp {} ${OUTAMPLICONDIR}/amplicon_analysis.${fileid}.fastq)
+done
